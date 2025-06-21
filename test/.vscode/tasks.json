@@ -1,0 +1,67 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run PoE Macro",
+            "type": "shell",
+            "command": "${workspaceFolder}/main.ahk",
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "presentation": {
+                "reveal": "silent",
+                "close": true
+            }
+        },
+        {
+            "label": "Run as Administrator",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-Command",
+                "Start-Process",
+                "'${workspaceFolder}/main.ahk'",
+                "-Verb",
+                "RunAs"
+            ],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "silent",
+                "close": true
+            }
+        },
+        {
+            "label": "Kill All AutoHotkey",
+            "type": "shell",
+            "command": "taskkill",
+            "args": ["/F", "/IM", "AutoHotkey.exe"],
+            "problemMatcher": [],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "Debug Mode ON",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-Command",
+                "(Get-Content '${workspaceFolder}/config/settings.ahk') -replace 'debugMode := false', 'debugMode := true' | Set-Content '${workspaceFolder}/config/settings.ahk'"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "Debug Mode OFF",
+            "type": "shell",
+            "command": "powershell",
+            "args": [
+                "-Command",
+                "(Get-Content '${workspaceFolder}/config/settings.ahk') -replace 'debugMode := true', 'debugMode := false' | Set-Content '${workspaceFolder}/config/settings.ahk'"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}

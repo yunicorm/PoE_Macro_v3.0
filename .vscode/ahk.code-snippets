@@ -1,0 +1,100 @@
+{
+    // AutoHotkey用のカスタムスニペット
+    
+    "Timer Function": {
+        "prefix": "timerfunc",
+        "body": [
+            "; --- ${1:機能名} ---",
+            "${2:FunctionName}() {",
+            "    global ${3:variables}",
+            "    ",
+            "    if IfWinActiveAndRunning() {",
+            "        ${4:; 処理内容}",
+            "        ",
+            "        Random, interval, % ${5:interval_min}, % ${6:interval_max}",
+            "        SetTimer, ${2:FunctionName}, % -1 * interval",
+            "    }",
+            "}"
+        ],
+        "description": "タイマー関数のテンプレート"
+    },
+    
+    "GUI Creation": {
+        "prefix": "creategui",
+        "body": [
+            "; --- ${1:GUI名} GUI ---",
+            "Create${1:GuiName}GUI(x, y) {",
+            "    global overlayGUIs",
+            "    ",
+            "    ; 既存のGUIを破棄",
+            "    Gui, ${1:GuiName}:Destroy",
+            "    ",
+            "    Gui, ${1:GuiName}:+AlwaysOnTop -Caption +ToolWindow +E0x20",
+            "    Gui, ${1:GuiName}:Color, 000000",
+            "    ",
+            "    ; アイコン",
+            "    iconPath := A_ScriptDir . \"\\icons\\\\${2:icon_name}.png\"",
+            "    if (FileExist(iconPath)) {",
+            "        Gui, ${1:GuiName}:Add, Picture, x5 y5 w64 h64, %iconPath%",
+            "    } else {",
+            "        Gui, ${1:GuiName}:Font, s20 cFFFFFF Bold, Arial",
+            "        Gui, ${1:GuiName}:Add, Text, x5 y5 w64 h64 Center, ${3:代替テキスト}",
+            "    }",
+            "    ",
+            "    ; テキスト",
+            "    Gui, ${1:GuiName}:Font, s10 cFFFFFF Bold, Arial",
+            "    Gui, ${1:GuiName}:Add, Text, x5 y72 w74 h20 Center v${1:GuiName}_Text, ${4:初期テキスト}",
+            "    ",
+            "    ; プログレスバー",
+            "    Gui, ${1:GuiName}:Add, Progress, x5 y95 w74 h8 c00FF00 Background333333 v${1:GuiName}_Progress, ${5:100}",
+            "    ",
+            "    Gui, ${1:GuiName}:Show, NoActivate x%x% y%y% w84 h108 Hide",
+            "    ",
+            "    ; 透明度設定",
+            "    WinSet, TransColor, 000000, ${1:GuiName}",
+            "    WinSet, Transparent, 240, ${1:GuiName}",
+            "    ",
+            "    overlayGUIs[\"${1:GuiName}\"] := \"${1:GuiName}\"",
+            "}"
+        ],
+        "description": "オーバーレイGUI作成テンプレート"
+    },
+    
+    "Debug Log": {
+        "prefix": "debug",
+        "body": [
+            "DebugLog(\"${1:メッセージ}\")"
+        ],
+        "description": "デバッグログ出力"
+    },
+    
+    "If Win Active": {
+        "prefix": "ifwin",
+        "body": [
+            "if IfWinActiveAndRunning() {",
+            "    ${1:; 処理}",
+            "}"
+        ],
+        "description": "ウィンドウアクティブチェック"
+    },
+    
+    "Global Variable": {
+        "prefix": "gvar",
+        "body": [
+            "global ${1:variableName} := ${2:defaultValue}"
+        ],
+        "description": "グローバル変数定義"
+    },
+    
+    "Module Header": {
+        "prefix": "header",
+        "body": [
+            "; ==============================================================================",
+            "; ${1:モジュール名}",
+            "; ==============================================================================",
+            "",
+            "$0"
+        ],
+        "description": "モジュールヘッダー"
+    }
+}
